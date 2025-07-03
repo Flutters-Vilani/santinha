@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:santinha/botoes_login.dart';
 
 class Dashboard extends StatefulWidget {
-  const Dashboard({super.key});
+  dynamic userContent;
+  Dashboard({this.userContent, super.key});
 
   @override
   State<Dashboard> createState() => _DashboardState();
@@ -13,6 +14,7 @@ class _DashboardState extends State<Dashboard> {
   bool cardExtratoAberto = false;
   bool cardCartoesAberto = false;
   int _current = 0;
+  dynamic userContent;
   final CarouselSliderController _controller = CarouselSliderController();
 
   final List<String> imgList = [
@@ -73,13 +75,13 @@ class _DashboardState extends State<Dashboard> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Olá, Guilherme",
+                            "Olá, ${widget.userContent['nome']}",
                             style: TextStyle(
                               color: Colors.white,
                             ),
                           ),
                           Text(
-                            "Ag 4317 Cc 01097031-8",
+                            "Ag 4317 Cc ${widget.userContent["numeroConta"]}",
                             style: TextStyle(
                               color: Colors.white,
                             ),
@@ -132,14 +134,14 @@ class _DashboardState extends State<Dashboard> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          "R\$ 1.000.000,00",
+                                          "R\$ ${widget.userContent["saldo"]}",
                                           style: TextStyle(
                                             fontSize: 20,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
                                         Text(
-                                          "Saldo + Limite: R\$ 143,43",
+                                          "Saldo + Limite: R\$ ${widget.userContent["saldo"]}",
                                         ),
                                         Text(
                                           "Entenda seu limite",

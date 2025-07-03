@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:santinha/dashboard.dart';
 
+import 'cadastrar_conta.dart';
+import 'controller/request.dart';
+
 class Login2 extends StatefulWidget {
   const Login2({super.key});
 
@@ -89,14 +92,35 @@ class _Login2State extends State<Login2> {
                   decoration: TextDecoration.underline,
                 ),
               ),
+              SizedBox(
+                height: 15,
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (ctx) => CadastrarConta()));
+                },
+                child: Text(
+                  "Cadastre sua conta",
+                  style: TextStyle(
+                    color: Colors.red,
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
+              ),
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(builder: (_) => Dashboard()));
+                      onTap: () async {
+                        RequestApi requestApi = RequestApi();
+                        dynamic userContent = await requestApi.request(
+                            methodHttp: "GET", route: "usuarios/1");
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (_) => Dashboard(
+                                  userContent: userContent,
+                                )));
                       },
                       child: Container(
                         alignment: Alignment.center,
