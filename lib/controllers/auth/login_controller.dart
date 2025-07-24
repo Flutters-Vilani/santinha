@@ -1,9 +1,13 @@
+import 'package:santinha/shared_preferences/keys_shared_preferences.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import '../request.dart';
 
-class LoginController {
-  Request request = Request();
+Request request = Request();
 
+class LoginController {
   login(String cpf, String senha) async {
+    final prefs = await SharedPreferences.getInstance();
     dynamic response = await request.methodRequest(
       "auth/login",
       "POST",
@@ -12,6 +16,11 @@ class LoginController {
         "senha": senha,
       },
     );
-    print(response.toString());
+
+    if (response['statusCode'] == 200) {
+      await prefs.setString('token', response['body']["token"]);
+    } else {}
+
+    return response;
   }
 }

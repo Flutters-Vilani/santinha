@@ -2,6 +2,7 @@ import 'package:santinha/controllers/auth/login_controller.dart';
 import 'package:santinha/views/cadastro_conta.dart';
 import 'package:santinha/views/dashboard.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -92,30 +93,30 @@ class _LoginState extends State<Login> {
                 label: Text("Senha"),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Lembrar minha senha",
-                  style: TextStyle(
-                    color: Colors.grey,
-                  ),
-                ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     Text(
+            //       "Lembrar minha senha",
+            //       style: TextStyle(
+            //         color: Colors.grey,
+            //       ),
+            //     ),
 
-                // switch lembrar minha senha
-                Switch(
-                    activeColor: Colors.white,
-                    activeTrackColor: Color.fromARGB(255, 236, 9, 0),
-                    value: vrSwitchSenha,
-                    onChanged: (value) {
-                      setState(() {
-                        vrSwitchSenha = value;
-                      });
-                    })
-              ],
-            ),
+            //     // switch lembrar minha senha
+            //     Switch(
+            //         activeColor: Colors.white,
+            //         activeTrackColor: Color.fromARGB(255, 236, 9, 0),
+            //         value: vrSwitchSenha,
+            //         onChanged: (value) {
+            //           setState(() {
+            //             vrSwitchSenha = value;
+            //           });
+            //         })
+            //   ],
+            // ),
             SizedBox(
-              height: 15,
+              height: 30,
             ),
             Text(
               "Esqueci minha senha",
@@ -151,12 +152,25 @@ class _LoginState extends State<Login> {
               children: [
                 GestureDetector(
                   onTap: () async {
-                    dynamic response = await loginController.login(
+                    final prefs = await SharedPreferences.getInstance();
+
+                    if (vrSwitchCpf) {
+                      await prefs.setBool("cpf", true);
+                    }
+                    dynamic resposta = await loginController.login(
                         cpfController.text, senhaController.text);
 
-                    // print(response);
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (ctx) => Dashboard()));
+                    if (resposta['statusCode'] != 200) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          backgroundColor: Colors.red,
+                          content: Text("Nao logou"),
+                        ),
+                      );
+                    } else {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (ctx) => Dashboard()));
+                    }
                   },
                   child: Container(
                     alignment: Alignment.center,

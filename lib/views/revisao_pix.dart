@@ -209,8 +209,6 @@ class _RevisaoPixState extends State<RevisaoPix> {
               onTap: () async {
                 dynamic resposta = await pixController.transferePix();
 
-                print("TIPO -----> " + resposta['tipo']);
-
                 if (resposta['tipo'] == "ENVIOU") {
                   Navigator.of(context).push(
                     MaterialPageRoute(
