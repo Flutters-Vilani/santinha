@@ -1,3 +1,4 @@
+import 'package:santinha/views/dashboard.dart';
 import 'package:flutter/material.dart';
 
 class Comprovante extends StatefulWidget {
@@ -16,7 +17,10 @@ class _ComprovanteState extends State<Comprovante> {
         iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: Color.fromARGB(255, 236, 9, 0),
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => Dashboard()));
+          },
           icon: Icon(
             Icons.close,
             size: 40,
@@ -51,8 +55,9 @@ class _ComprovanteState extends State<Comprovante> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          Icons.done_all,
+                          Icons.check_circle_outline_rounded,
                           color: Colors.green,
+                          size: 40,
                         ),
                         SizedBox(
                           width: 5,

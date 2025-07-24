@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'login.dart';
+import 'pre_login.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -12,27 +12,28 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    Future.delayed(Duration(seconds: 5)).then(
-      (value) {
-        Navigator.of(context).push(MaterialPageRoute(builder: (_) => Login()));
+    Future.delayed(
+      Duration(seconds: 3),
+      () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => PreLogin(),
+          ),
+        );
       },
     );
 
-    // TODO: implement initState
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.red,
+      backgroundColor: const Color.fromARGB(255, 236, 9, 0),
       body: Center(
-        child: SizedBox(
-          height: 120,
-          child: Image.asset(
-            'assets/logo_santinha.png',
-            // height: 250,
-          ),
+        child: Image.asset(
+          "assets/logo_santinha.png",
+          width: 150,
         ),
       ),
     );

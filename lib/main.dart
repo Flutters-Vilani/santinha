@@ -1,20 +1,25 @@
+import 'package:santinha/views/comprovante.dart';
+import 'package:santinha/views/pix_1.dart';
 import 'package:flutter/material.dart';
-import 'package:santinha/comprovante.dart';
+import 'views/splash_screen.dart';
 
-import 'splash.dart';
-
-void main() {
-  runApp(const MyApp());
+main() {
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      home: SplashScreen(),
       debugShowCheckedModeBanner: false,
-      home: Comprovante(),
     );
   }
 }
